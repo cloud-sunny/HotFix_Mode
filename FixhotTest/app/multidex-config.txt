@@ -1,0 +1,3 @@
+test/fixhot/com/BaseActivity.class
+test/fixhot/com/MainActivity.class
+test/fixhot/com/BaseApplication.class

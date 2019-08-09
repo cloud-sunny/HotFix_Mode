@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "test.fixhot.com"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        //开启分包
+        multiDexEnabled true
+        //分包配置(主包)
+        multiDexKeepFile file('multidex-config.txt')
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+        additionalParameters = [ //配置multidex参数
+                                 '--multi-dex', // 多hex分包
+                                 '--ѕеt-mах-іdх-numbеr=5ѲѲ00', // 每个包内方法数上限
+                                 '--main-dex-list=' + '/multidex-config.txt', // 打包到主classes.dex的文件列表
+                                 '--minimal-main-dex'
+        ]
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':Hotfix')
+}
